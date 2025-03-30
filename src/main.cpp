@@ -1,16 +1,23 @@
 #include <iostream>
 
-#include "../include/User.h"
+#include "../include/Account.h"
 
 int main() {
+    std::string idNumber = "FEJ56483";
     std::string firstName = "John";
     std::string lastName = "Doe";
     std::string email = "john.doe@example.com";
     int day = 1;
     int month = 1;
     int year = 1999;
-    User user(firstName, lastName, email, day, month, year);
-    std::cout << User::displayBirthday(day, month, year);
-
+    Account account(idNumber, firstName, lastName, email, day, month, year);
+    std::string login = "john-doe";
+    std::string passwd = "john123";
+    std::string confirmPasswd = "john123";
+    double balance = 1000.5;
+    account.createAccount(login, passwd, confirmPasswd, balance);
+    account.activateAccount();
+    Account::editAccount(account);
+    std::cout << account.getFirstName();
     return 0;
 }
