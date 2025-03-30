@@ -16,18 +16,26 @@ using Day = std::chrono::day;
 class User {
 public:
     User(
+        std::string& idNumber,
         std::string& firstName,
         std::string& lastName,
         std::string& email,
         int day,
         int month,
         int year
-        ) : firstName(firstName), lastName(lastName), email(email), birthday(day, month, year) {}
-    static DateTime displayBirthday(int d, int m, int y);
+        ) : idNumber(idNumber), firstName(firstName), lastName(lastName), email(email), birthday(day, month, year) {}
+    DateTime getBirthday() const;
+    std::string getIdNumber() const;
     std::string getFirstName() const;
     std::string getLastName() const;
     std::string getEmail() const;
+    void setIdNumber(const std::string& idNumber);
+    void setFirstName(const std::string& firstName);
+    void setLastName(const std::string& lastName);
+    void setEmail(const std::string& email);
+    void setBirthday(int day, int month, int year);
 private:
+    std::string idNumber;
     std::string firstName;
     std::string lastName;
     std::string email;
