@@ -5,6 +5,7 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include "BankOperations.h"
 #include "User.h"
 
 class Account : public User {
@@ -28,6 +29,9 @@ public:
     void activateAccount();
     void setLogin(std::string& login);
     void setPasswd(std::string& passwd);
+    void performOperation(BankOperation operation, double amount);
+    void deposit(double amount);
+    void withdraw(double amount);
 private:
     std::string login;
     std::string passwd;

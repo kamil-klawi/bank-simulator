@@ -15,9 +15,12 @@ int main() {
     std::string passwd = "john123";
     std::string confirmPasswd = "john123";
     double balance = 1000.5;
+    double amount = 0.1;
     account.createAccount(login, passwd, confirmPasswd, balance);
     account.activateAccount();
-    Account::editAccount(account);
-    std::cout << account.getFirstName();
+    // Account::editAccount(account);
+    // std::cout << account.getFirstName();
+    account.performOperation(DEPOSIT, amount);
+    std::cout << account.getBalance();
     return 0;
 }

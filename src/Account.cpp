@@ -102,3 +102,37 @@ void Account::setLogin(std::string& login) {
 void Account::setPasswd(std::string& passwd) {
     this->passwd = passwd;
 }
+
+void Account::performOperation(BankOperation operation, double amount) {
+    if (!this->isActive()) {
+        throw std::invalid_argument("The account is inactive, so you cannot make deposit or withdraw.");
+    }
+
+    if (operation == DEPOSIT) {
+        deposit(amount);
+    } else if (operation == WITHDRAW) {
+        withdraw(amount);
+    } else {
+        std::cout << "Invalid operation!\n";
+    }
+}
+
+void Account::deposit(double amount) {
+    if (amount <= 0) {
+        throw std::invalid_argument("The amount must be greater than 0");
+    }
+
+    this->balance += amount;
+}
+
+void Account::withdraw(double amount) {
+    if (amount <= 0) {
+        throw std::invalid_argument("The amount must be greater than 0");
+    }
+
+    if (this->balance < amount) {
+        throw std::invalid_argument("The balance must be greater than amount");
+    }
+
+    this->balance -= amount;
+}
