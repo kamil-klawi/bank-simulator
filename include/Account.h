@@ -33,6 +33,7 @@ public:
     void performOperation(BankOperation operation, double amount);
     void deposit(double amount);
     void withdraw(double amount);
+    void transfer(Account& toAccount, double amount);
     void getTransactionHistory() const;
 private:
     std::string login;

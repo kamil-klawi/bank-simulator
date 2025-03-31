@@ -139,6 +139,24 @@ void Account::withdraw(double amount) {
     this->balance -= amount;
 }
 
+void Account::transfer(Account &toAccount, double amount) {
+    if (!this->isActive()) {
+        throw std::invalid_argument("The account is inactive, so you cannot transfer.");
+    }
+
+    if (amount <= 0) {
+        std::cout << "The amount must be greater than 0";
+    }
+
+    if (this->balance >= amount) {
+        this->balance -= amount;
+        toAccount.balance += amount;
+    } else {
+        std::cout << "The balance must be greater or equal amount";
+    }
+}
+
+
 void Account::getTransactionHistory() const {
     if (transactions_.empty()) {
         std::cout << "There are no transactions.\n";
