@@ -5,7 +5,10 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include <vector>
+
 #include "BankOperations.h"
+#include "Transaction.h"
 #include "User.h"
 
 class Account : public User {
@@ -19,10 +22,8 @@ public:
         int month,
         int year
         ) : User(idNumber, firstName, lastName, email, day, month, year) {}
-
     double getBalance() const;
     bool isActive() const;
-
     void createAccount(std::string& login, std::string& passwd, std::string& confirmPasswd, double balance);
     static void editAccount(Account& account);
     void deleteAccount();
@@ -32,12 +33,14 @@ public:
     void performOperation(BankOperation operation, double amount);
     void deposit(double amount);
     void withdraw(double amount);
+    void getTransactionHistory() const;
 private:
     std::string login;
     std::string passwd;
     std::string confirmPasswd;
     double balance;
     bool active;
+    std::vector<Transaction> transactions_;
 };
 
 #endif //ACCOUNT_H

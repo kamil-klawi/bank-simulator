@@ -110,8 +110,10 @@ void Account::performOperation(BankOperation operation, double amount) {
 
     if (operation == DEPOSIT) {
         deposit(amount);
+        this->transactions_.push_back(Transaction(DEPOSIT, amount, this->balance));
     } else if (operation == WITHDRAW) {
         withdraw(amount);
+        this->transactions_.push_back(Transaction(WITHDRAW, amount, this->balance));
     } else {
         std::cout << "Invalid operation!\n";
     }
@@ -135,4 +137,19 @@ void Account::withdraw(double amount) {
     }
 
     this->balance -= amount;
+}
+
+void Account::getTransactionHistory() const {
+    if (transactions_.empty()) {
+        std::cout << "There are no transactions.\n";
+    }
+
+    std::cout << "Transaction history: " << this->transactions_.size() << " transactions.\n";
+    for (const auto& transaction : this->transactions_) {
+        std::cout << "{\n\tOperation: " << (transaction.getOperation() == DEPOSIT ? "DEPOSIT" : "WITHDRAW") << "\n";
+        std::cout << "\tAmount: " << transaction.getAmount() << "\n";
+        std::cout << "\tAccount balance: " << transaction.getNewBalance() << "\n";
+        std::cout << "\tAccount: " << this->getFirstName() << " " << this->getLastName() << "\n";
+        std::cout << "\tTimestamp: " << transaction.getTimestamp() << "},\n";
+    }
 }

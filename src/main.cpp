@@ -18,9 +18,12 @@ int main() {
     double amount = 0.1;
     account.createAccount(login, passwd, confirmPasswd, balance);
     account.activateAccount();
-    // Account::editAccount(account);
-    // std::cout << account.getFirstName();
+    std::cout << account.getFirstName() << "\n";
     account.performOperation(DEPOSIT, amount);
-    std::cout << account.getBalance();
+    account.performOperation(DEPOSIT, amount);
+    account.performOperation(DEPOSIT, amount);
+    account.performOperation(WITHDRAW, amount);
+    account.performOperation(WITHDRAW, amount);
+    account.getTransactionHistory();
     return 0;
 }
