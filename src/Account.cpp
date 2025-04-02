@@ -173,7 +173,8 @@ void Account::getTransactionHistory() const {
     }
 }
 
-void Account::setAccountDetails(std::string& firstName, std::string& lastName, std::string& email, int& day, int& month, int& year) {
+Account Account::setAccountDetails(std::string& idNumber, std::string& firstName, std::string& lastName, std::string& email, int& day, int& month, int& year) {
+    idNumber = generateIdNumber();
     std::cout << "Enter your first name:\n";
     std::cin >> firstName;
     std::cout << "Enter your last name:\n";
@@ -186,9 +187,10 @@ void Account::setAccountDetails(std::string& firstName, std::string& lastName, s
     std::cin >> month;
     std::cout << "Enter your birth year:\n";
     std::cin >> year;
+    return {idNumber, firstName, lastName, email, day, month, year};
 }
 
-bool Account::getLoginAndPassword(std::string& login, std::string& password, std::string& confirmPassword, double& balance) {
+LoginAndPassword Account::setLoginAndPassword(std::string& login, std::string& password, std::string& confirmPassword, double& balance) {
     std::cout << "Create your login:\n";
     std::cin >> login;
 
@@ -208,18 +210,28 @@ bool Account::getLoginAndPassword(std::string& login, std::string& password, std
         }
     } while (password != confirmPassword || balance < 0);
 
-    return true;
+    return {login, password, confirmPassword, balance};
 }
 
-void Account::createBankAccount(std::vector<Account> accounts, Account currentAccount) {
+Account Account::createBankAccount(std::vector<Account> accounts, Account currentAccount) {
     std::string idNumber, firstName, lastName, email, login, password, confirmPassword;
     int day, month, year;
     double balance;
-    idNumber = generateIdNumber();
 
-    setAccountDetails(firstName, lastName, email, day, month, year);
-    accounts.emplace_back(idNumber, firstName, lastName, email, day, month, year);
+    Account account = setAccountDetails(idNumber, firstName, lastName, email, day, month, year);
+    accounts.push_back(account);
 
-    getLoginAndPassword(login, password, confirmPassword, balance);
-    currentAccount.createAccount(login, password, confirmPassword, balance);
+    LoginAndPassword lap = setLoginAndPassword(login, password, confirmPassword, balance);
+    currentAccount.createAccount(lap.login, lap.password, lap.confirmPassword, lap.balance);
+
+    return account;
 }
+
+std::string Account::getLogin() const {
+    return this->login;
+}
+
+std::string Account::getPassword() const {
+    return this->passwd;
+}
+

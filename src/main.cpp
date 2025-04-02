@@ -6,6 +6,7 @@
 
 int main() {
     int choice;
+    std::string login, passwd;
     std::vector<Account> accounts;
     Account currentAccount;
     const std::vector<std::string> topics = {
@@ -26,14 +27,13 @@ int main() {
 
         switch (choice) {
             case 1:
-                Account::createBankAccount(accounts, currentAccount);
+                currentAccount = Account::createBankAccount(accounts, currentAccount);
+                accounts.push_back(currentAccount);
                 break;
             case 2:
                 if (checkIfAccountsEmpty(accounts)) {
                     continue;
                 }
-
-                std::cout << "Login to user account\n";
                 for (const Account& account : accounts) {
                     std::cout << account.getIdNumber() << "\n";
                     std::cout << account.getFirstName() << " " << account.getLastName() << "\n";
