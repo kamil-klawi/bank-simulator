@@ -13,18 +13,22 @@
 
 class Account : public User {
 public:
+    Account() : User("", "", "", "", 1, 1, 1970) {}
     Account(
-        std::string& idNumber,
-        std::string& firstName,
-        std::string& lastName,
-        std::string& email,
+        const std::string& idNumber,
+        const std::string& firstName,
+        const std::string& lastName,
+        const std::string& email,
         int day,
         int month,
         int year
         ) : User(idNumber, firstName, lastName, email, day, month, year) {}
     double getBalance() const;
     bool isActive() const;
+    static bool getLoginAndPassword(std::string& login, std::string& password, std::string& confirmPassword, double& balance);
+    static void setAccountDetails(std::string& firstName, std::string& lastName, std::string& email, int& day, int& month, int& year);
     void createAccount(std::string& login, std::string& passwd, std::string& confirmPasswd, double balance);
+    static void createBankAccount(std::vector<Account> accounts, Account currentAccount);
     static void editAccount(Account& account);
     void deleteAccount();
     void activateAccount();
