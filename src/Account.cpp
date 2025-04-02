@@ -5,9 +5,10 @@
 #include <iostream>
 
 #include "../include/Account.h"
+#include "../include/GenerateIdNumber.h"
 
 double Account::getBalance() const {
-    return balance;
+    return this->balance;
 }
 
 bool Account::isActive() const {
@@ -110,10 +111,10 @@ void Account::performOperation(BankOperation operation, double amount) {
 
     if (operation == DEPOSIT) {
         deposit(amount);
-        this->transactions_.push_back(Transaction(DEPOSIT, amount, this->balance));
+        this->transactions_.emplace_back(DEPOSIT, amount, this->balance);
     } else if (operation == WITHDRAW) {
         withdraw(amount);
-        this->transactions_.push_back(Transaction(WITHDRAW, amount, this->balance));
+        this->transactions_.emplace_back(WITHDRAW, amount, this->balance);
     } else {
         std::cout << "Invalid operation!\n";
     }
@@ -171,3 +172,66 @@ void Account::getTransactionHistory() const {
         std::cout << "\tTimestamp: " << transaction.getTimestamp() << "},\n";
     }
 }
+
+Account Account::setAccountDetails(std::string& idNumber, std::string& firstName, std::string& lastName, std::string& email, int& day, int& month, int& year) {
+    idNumber = generateIdNumber();
+    std::cout << "Enter your first name:\n";
+    std::cin >> firstName;
+    std::cout << "Enter your last name:\n";
+    std::cin >> lastName;
+    std::cout << "Enter your address email:\n";
+    std::cin >> email;
+    std::cout << "Enter your birth day:\n";
+    std::cin >> day;
+    std::cout << "Enter your birth month:\n";
+    std::cin >> month;
+    std::cout << "Enter your birth year:\n";
+    std::cin >> year;
+    return {idNumber, firstName, lastName, email, day, month, year};
+}
+
+LoginAndPassword Account::setLoginAndPassword(std::string& login, std::string& password, std::string& confirmPassword, double& balance) {
+    std::cout << "Create your login:\n";
+    std::cin >> login;
+
+    do {
+        std::cout << "Create your password:\n";
+        std::cin >> password;
+        std::cout << "Confirm password:\n";
+        std::cin >> confirmPassword;
+        std::cout << "Enter your balance:\n";
+        std::cin >> balance;
+
+        if (password != confirmPassword) {
+            std::cout << "Passwords do not match. Please try again.\n";
+        }
+        if (balance < 0) {
+            std::cout << "Balance must be non-negative. Please try again.\n";
+        }
+    } while (password != confirmPassword || balance < 0);
+
+    return {login, password, confirmPassword, balance};
+}
+
+Account Account::createBankAccount(std::vector<Account> accounts, Account currentAccount) {
+    std::string idNumber, firstName, lastName, email, login, password, confirmPassword;
+    int day, month, year;
+    double balance;
+
+    Account account = setAccountDetails(idNumber, firstName, lastName, email, day, month, year);
+    accounts.push_back(account);
+
+    LoginAndPassword lap = setLoginAndPassword(login, password, confirmPassword, balance);
+    currentAccount.createAccount(lap.login, lap.password, lap.confirmPassword, lap.balance);
+
+    return account;
+}
+
+std::string Account::getLogin() const {
+    return this->login;
+}
+
+std::string Account::getPassword() const {
+    return this->passwd;
+}
+

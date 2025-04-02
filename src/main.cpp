@@ -1,45 +1,75 @@
 #include <iostream>
+#include <random>
 
 #include "../include/Account.h"
+#include "../include/Helpers.h"
 
 int main() {
-    std::string idNumber = "FEJ56483";
-    std::string firstName = "John";
-    std::string lastName = "Doe";
-    std::string email = "john.doe@example.com";
-    int day = 1;
-    int month = 1;
-    int year = 1999;
-    std::string idNumber2 = "FES34294";
-    std::string firstName2 = "Alexander";
-    std::string lastName2 = "Smith";
-    std::string email2 = "alexander.smith@example.com";
+    int choice;
+    std::string login, passwd;
+    std::vector<Account> accounts;
+    Account currentAccount;
+    const std::vector<std::string> topics = {
+        "Create an account",
+        "Login to account",
+        "Activate account",
+        "Delete account",
+        "Exiting the application"
+    };
 
-    Account account(idNumber, firstName, lastName, email, day, month, year);
-    Account account2(idNumber2, firstName2, lastName2, email2, day, month, year);
+    do {
+        std::cout << "What do you want to do?\n";
+        for (int i = 0; i < topics.size(); i++) {
+            std::cout << i + 1 << ". " << topics[i] << "\n";
+        }
+        std::cout << "Choose an option: ";
+        std::cin >> choice;
 
-    std::string login = "john-doe";
-    std::string passwd = "john123";
-    std::string confirmPasswd = "john123";
-    std::string login2 = "alexander-smith";
-    std::string passwd2 = "alexander123";
-    std::string confirmPasswd2 = "alexander123";
+        switch (choice) {
+            case 1:
+                currentAccount = Account::createBankAccount(accounts, currentAccount);
+                accounts.push_back(currentAccount);
+                break;
+            case 2:
+                if (checkIfAccountsEmpty(accounts)) {
+                    continue;
+                }
+                for (const Account& account : accounts) {
+                    std::cout << account.getIdNumber() << "\n";
+                    std::cout << account.getFirstName() << " " << account.getLastName() << "\n";
+                    std::cout << account.getEmail() << "\n";
+                    std::cout << account.getBirthday() << "\n";
+                }
+                break;
+            case 3:
+                if (checkIfAccountsEmpty(accounts)) {
+                    continue;
+                }
 
-    double balance = 1000;
-    double amount = 500;
+                if (checkIfUserLoggedIn(currentAccount)) {
+                    continue;
+                }
 
-    account.createAccount(login, passwd, confirmPasswd, balance);
-    account2.createAccount(login2, passwd2, confirmPasswd2, balance);
-    account.activateAccount();
-    account2.activateAccount();
+                currentAccount.activateAccount();
+                break;
+            case 4:
+                if (checkIfAccountsEmpty(accounts)) {
+                    continue;
+                }
 
-    std::cout << "Balance account 1: " << account.getBalance() << "$\n";
-    std::cout << "Balance account 2: " << account2.getBalance() << "$\n";
+                if (checkIfUserLoggedIn(currentAccount)) {
+                    continue;
+                }
 
-    account.transfer(account2, amount);
-
-    std::cout << "Balance account 1: " << account.getBalance() << "$\n";
-    std::cout << "Balance account 2: " << account2.getBalance() << "$\n";
-
+                currentAccount.deleteAccount();
+                break;
+            case 5:
+                std::cout << "You are exiting the app!\n";
+                std::cout << "Thank you for using the app! Goodbye!\n";
+                break;
+            default:
+                std::cout << "Invalid choice\n";
+        }
+    } while (choice != 5);
     return 0;
 }

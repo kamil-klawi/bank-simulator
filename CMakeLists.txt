@@ -10,4 +10,8 @@ add_executable(Bank_Simulator src/main.cpp
         src/User.cpp
         include/BankOperations.h
         include/Transaction.h
-        src/Transaction.cpp)
+        src/Transaction.cpp
+        lib/GenerateIdNumber.cpp
+        include/GenerateIdNumber.h
+        lib/Helpers.cpp
+        include/Helpers.h)
