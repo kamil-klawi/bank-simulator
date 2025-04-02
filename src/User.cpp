@@ -5,7 +5,7 @@
 #include "../include/User.h"
 
 DateTime User::getBirthday() const {
-    return Year(this->birthday.year) / Month(this->birthday.month) / Day(this->birthday.day);
+    return this->birthday;
 }
 
 std::string User::getIdNumber() const {
@@ -41,5 +41,5 @@ void User::setEmail(const std::string& email) {
 }
 
 void User::setBirthday(int day, int month, int year) {
-    this->birthday = {day, month, year};
+    this->birthday = DateTime(Year(year), Month(month), Day(day));
 }
