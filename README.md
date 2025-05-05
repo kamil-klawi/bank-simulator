@@ -1,43 +1,53 @@
-Podstawowe funkcje symulatora banku:
+# Bank Simulator
 
-1) Zakładanie konta
-   - Użytkownicy mogą zakładać nowe konta bankowe, podając swoje dane (imię, nazwisko, numer identyfikacyjny, adres e-mail itp.).
-   - Funkcje:
-     - Weryfikacja danych użytkownika (np. sprawdzenie, czy numer identyfikacyjny jest unikalny)
-     - Utworzenie konta z początkowym stanem na koncie (np. saldo początkowe).
+## Overview
 
-2) Depozyty (wpłaty na konto)
-   - Użytkownicy mogą wpłacać pieniądze na swoje konto bankowe.
-   - Funkcje:
-     - Wprowadzenie kwoty do wpłaty
-     - Aktualizacja salda konta po wykonaniu depozytu
+The Bank Simulator is an application that simulates the functionality of a simple banking system. Users can create bank accounts, deposit and withdraw funds, make transfers, and manage their personal information.
 
-3) Wypłaty
-   - Użytkownicy mogą wypłacać pieniądze ze swojego konta, pod warunkiem, że saldo jest wystarczające.
-   - Funkcje:
-     - Weryfikacja, czy saldo konta pozwala na wypłatę
-     - Zmniejszenie salda o wypłaconą kwotę
+## Technologies Used
 
-4) Sprawdzanie salda
-   - Użytkownicy mogą sprawdzić stan swojego konta w dowolnym momencie.
-   - Funkcje:
-     - Wyświetlenie aktualnego salda konta
+- **Language**: C++
+- **Platform**: Console app
 
-5) Przelewy między kontami
-   - Użytkownicy mogą dokonywać przelewów na inne konta w tym samym banku.
-   - Funkcje:
-     - Przelew środków z konta jednego użytkownika na konto innego użytkownika
-     - Sprawdzenie dostępnego salda przed przelewem
+## Features
 
-6) Historia transakcji
-   - Użytkownicy mogą przeglądać historię transakcji na swoim koncie (wpłaty, wypłaty, przelewy).
-   - Funkcje:
-     - Zapis transakcji w bazie danych
-     - Wyświetlenie listy transakcji z datą, kwotą i typem transakcji
+#### Account Creation:
+Users can create new bank accounts by providing their personal information (e.g., first name, last name, identification number, email address, etc.).
+- Functions:
+   - Verification of user data (e.g., checking if the identification number is unique)
+   - Creation of an account with an initial balance
 
-7) Zarządzanie kontem
-   - Użytkownicy mogą edytować swoje dane osobowe, np. zmieniać adres e-mail lub numer telefonu.
-   - Funkcje:
-     - Edycja danych użytkownika
-     - Zmiana hasła
+#### Deposits
+Users can deposit money into their bank account.
+- Functions:
+   - Input the deposit amount
+   - Update the account balance after making a deposit
+
+#### Withdrawals
+Users can withdraw money from their account, provided their balance is sufficient.
+- Functions:
+   - Verification that the account balance allows for the withdrawal
+   - Decrease the balance by the withdrawn amount
+
+#### Checking Balance
+Users can check the balance of their account at any time.
+- Functions:
+   - Display the current account balance
+
+#### Transfers Between Accounts
+Users can make transfers to other accounts within the same bank.
+- Functions:
+   - Transfer funds from one user’s account to another user's account
+   - Check available balance before initiating the transfer
+
+#### Transaction History
+Users can view the transaction history of their account (deposits, withdrawals, transfers).
+- Functions:
+   - Display a list of transactions with date, amount, and transaction type
+
+#### Account Management
+Users can edit their personal information, such as changing their email address or phone number.
+- Functions:
+   - Edit user data
+   - Change password
 
